@@ -49,34 +49,24 @@ class GeneralExceptionsTest {
 
   @Test
   void shouldInstantiateAndThrowAllCustomExceptions() throws Exception {
-    Class<?>[] exceptionTypes = {
-        BindingException.class,
-        CacheException.class,
-        DataSourceException.class,
-        ExecutorException.class,
-        LogException.class,
-        ParsingException.class,
-        BuilderException.class,
-        PluginException.class,
-        ReflectionException.class,
-        PersistenceException.class,
-        SqlSessionException.class,
-        TransactionException.class,
-        TypeException.class,
-        ScriptingException.class
-    };
+    Class<?>[] exceptionTypes = { BindingException.class, CacheException.class, DataSourceException.class,
+        ExecutorException.class, LogException.class, ParsingException.class, BuilderException.class,
+        PluginException.class, ReflectionException.class, PersistenceException.class, SqlSessionException.class,
+        TransactionException.class, TypeException.class, ScriptingException.class };
     for (Class<?> exceptionType : exceptionTypes) {
       testExceptionConstructors(exceptionType);
     }
 
   }
 
-  private void testExceptionConstructors(Class<?> exceptionType) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+  private void testExceptionConstructors(Class<?> exceptionType)
+      throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
     Exception e = (Exception) exceptionType.newInstance();
     testThrowException(e);
     e = (Exception) exceptionType.getConstructor(String.class).newInstance(EXPECTED_MESSAGE);
     testThrowException(e);
-    e = (Exception) exceptionType.getConstructor(String.class, Throwable.class).newInstance(EXPECTED_MESSAGE, EXPECTED_CAUSE);
+    e = (Exception) exceptionType.getConstructor(String.class, Throwable.class).newInstance(EXPECTED_MESSAGE,
+        EXPECTED_CAUSE);
     testThrowException(e);
     e = (Exception) exceptionType.getConstructor(Throwable.class).newInstance(EXPECTED_CAUSE);
     testThrowException(e);

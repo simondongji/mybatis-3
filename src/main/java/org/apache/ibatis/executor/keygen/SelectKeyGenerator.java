@@ -65,7 +65,8 @@ public class SelectKeyGenerator implements KeyGenerator {
           // Do not close keyExecutor.
           // The transaction will be closed by parent executor.
           Executor keyExecutor = configuration.newExecutor(executor.getTransaction(), ExecutorType.SIMPLE);
-          List<Object> values = keyExecutor.query(keyStatement, parameter, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+          List<Object> values = keyExecutor.query(keyStatement, parameter, RowBounds.DEFAULT,
+              Executor.NO_RESULT_HANDLER);
           if (values.size() == 0) {
             throw new ExecutorException("SelectKey returned no data.");
           } else if (values.size() > 1) {
@@ -93,8 +94,7 @@ public class SelectKeyGenerator implements KeyGenerator {
     }
   }
 
-  private void handleMultipleProperties(String[] keyProperties,
-      MetaObject metaParam, MetaObject metaResult) {
+  private void handleMultipleProperties(String[] keyProperties, MetaObject metaParam, MetaObject metaResult) {
     String[] keyColumns = keyStatement.getKeyColumns();
 
     if (keyColumns == null || keyColumns.length == 0) {
@@ -104,7 +104,8 @@ public class SelectKeyGenerator implements KeyGenerator {
       }
     } else {
       if (keyColumns.length != keyProperties.length) {
-        throw new ExecutorException("If SelectKey has key columns, the number must match the number of key properties.");
+        throw new ExecutorException(
+            "If SelectKey has key columns, the number must match the number of key properties.");
       }
       for (int i = 0; i < keyProperties.length; i++) {
         setValue(metaParam, keyProperties[i], metaResult.getValue(keyColumns[i]));
@@ -116,7 +117,8 @@ public class SelectKeyGenerator implements KeyGenerator {
     if (metaParam.hasSetter(property)) {
       metaParam.setValue(property, value);
     } else {
-      throw new ExecutorException("No setter found for the keyProperty '" + property + "' in " + metaParam.getOriginalObject().getClass().getName() + ".");
+      throw new ExecutorException("No setter found for the keyProperty '" + property + "' in "
+          + metaParam.getOriginalObject().getClass().getName() + ".");
     }
   }
 }

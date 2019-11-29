@@ -24,9 +24,8 @@ import java.time.YearMonth;
 /**
  * Type Handler for {@link java.time.YearMonth}.
  * <p>
- * YearMonthTypeHandler relies upon
- * {@link java.time.YearMonth#parse YearMonth.parse}. Therefore column values
- * are expected as strings. The format must be uuuu-MM. Example: "2016-08"
+ * YearMonthTypeHandler relies upon {@link java.time.YearMonth#parse YearMonth.parse}. Therefore column values are
+ * expected as strings. The format must be uuuu-MM. Example: "2016-08"
  *
  * @since 3.4.5
  * @author Björn Raupach

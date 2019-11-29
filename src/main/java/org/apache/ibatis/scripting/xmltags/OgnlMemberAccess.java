@@ -56,8 +56,7 @@ class OgnlMemberAccess implements MemberAccess {
   }
 
   @Override
-  public void restore(Map context, Object target, Member member, String propertyName,
-      Object state) {
+  public void restore(Map context, Object target, Member member, String propertyName, Object state) {
     if (state != null) {
       ((AccessibleObject) member).setAccessible((Boolean) state);
     }

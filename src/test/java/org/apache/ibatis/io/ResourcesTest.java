@@ -79,7 +79,7 @@ class ResourcesTest extends BaseDataTest {
 
   @Test
   void shouldGetResourceAsReader() throws Exception {
-    try(Reader in = Resources.getResourceAsReader(CLASS_LOADER, JPETSTORE_PROPERTIES)) {
+    try (Reader in = Resources.getResourceAsReader(CLASS_LOADER, JPETSTORE_PROPERTIES)) {
       assertNotNull(in);
     }
   }

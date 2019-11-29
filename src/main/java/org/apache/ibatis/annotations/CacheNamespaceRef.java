@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
  * <p>
  * If you use this annotation, should be specified either {@link #value()} or {@link #name()} attribute.
  * </p>
+ * 
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */
@@ -41,6 +42,7 @@ public @interface CacheNamespaceRef {
 
   /**
    * A namespace name to reference a cache.
+   * 
    * @since 3.4.2
    */
   String name() default "";

@@ -29,7 +29,7 @@ public class ZonedDateTimeTypeHandler extends BaseTypeHandler<ZonedDateTime> {
 
   @Override
   public void setNonNullParameter(PreparedStatement ps, int i, ZonedDateTime parameter, JdbcType jdbcType)
-          throws SQLException {
+      throws SQLException {
     ps.setObject(i, parameter);
   }
 

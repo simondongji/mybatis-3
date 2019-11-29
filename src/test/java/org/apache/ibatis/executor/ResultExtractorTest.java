@@ -72,7 +72,7 @@ class ResultExtractorTest {
     final Object result = resultExtractor.extractObjectFromList(list, Integer[].class);
     assertThat(result).isInstanceOf(Integer[].class);
     final Integer[] resultArray = (Integer[]) result;
-    assertThat(resultArray).isEqualTo(new Integer[]{1, 2, 3});
+    assertThat(resultArray).isEqualTo(new Integer[] { 1, 2, 3 });
   }
 
   @Test

@@ -26,10 +26,9 @@ import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionException;
 
 /**
- * {@link Transaction} that makes use of the JDBC commit and rollback facilities directly.
- * It relies on the connection retrieved from the dataSource to manage the scope of the transaction.
- * Delays connection retrieval until getConnection() is called.
- * Ignores commit or rollback requests when autocommit is on.
+ * {@link Transaction} that makes use of the JDBC commit and rollback facilities directly. It relies on the connection
+ * retrieved from the dataSource to manage the scope of the transaction. Delays connection retrieval until
+ * getConnection() is called. Ignores commit or rollback requests when autocommit is on.
  *
  * @author Clinton Begin
  *
@@ -104,9 +103,10 @@ public class JdbcTransaction implements Transaction {
     } catch (SQLException e) {
       // Only a very poorly implemented driver would fail here,
       // and there's not much we can do about that.
-      throw new TransactionException("Error configuring AutoCommit.  "
-          + "Your driver may not support getAutoCommit() or setAutoCommit(). "
-          + "Requested setting: " + desiredAutoCommit + ".  Cause: " + e, e);
+      throw new TransactionException(
+          "Error configuring AutoCommit.  " + "Your driver may not support getAutoCommit() or setAutoCommit(). "
+              + "Requested setting: " + desiredAutoCommit + ".  Cause: " + e,
+          e);
     }
   }
 
@@ -125,8 +125,7 @@ public class JdbcTransaction implements Transaction {
       }
     } catch (SQLException e) {
       if (log.isDebugEnabled()) {
-        log.debug("Error resetting autocommit to true "
-            + "before closing the connection.  Cause: " + e);
+        log.debug("Error resetting autocommit to true " + "before closing the connection.  Cause: " + e);
       }
     }
   }

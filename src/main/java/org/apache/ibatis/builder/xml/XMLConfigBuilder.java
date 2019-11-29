@@ -101,7 +101,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   private void parseConfiguration(XNode root) {
     try {
-      //issue #117 read properties first
+      // issue #117 read properties first
       propertiesElement(root.evalNode("properties"));
       Properties settings = settingsAsProperties(root.evalNode("settings"));
       loadCustomVfs(settings);
@@ -131,7 +131,8 @@ public class XMLConfigBuilder extends BaseBuilder {
     MetaClass metaConfig = MetaClass.forClass(Configuration.class, localReflectorFactory);
     for (Object key : props.keySet()) {
       if (!metaConfig.hasSetter(String.valueOf(key))) {
-        throw new BuilderException("The setting " + key + " is not known.  Make sure you spelled it correctly (case sensitive).");
+        throw new BuilderException(
+            "The setting " + key + " is not known.  Make sure you spelled it correctly (case sensitive).");
       }
     }
     return props;
@@ -144,7 +145,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       for (String clazz : clazzes) {
         if (!clazz.isEmpty()) {
           @SuppressWarnings("unchecked")
-          Class<? extends VFS> vfsImpl = (Class<? extends VFS>)Resources.classForName(clazz);
+          Class<? extends VFS> vfsImpl = (Class<? extends VFS>) Resources.classForName(clazz);
           configuration.setVfsImpl(vfsImpl);
         }
       }
@@ -224,7 +225,8 @@ public class XMLConfigBuilder extends BaseBuilder {
       String resource = context.getStringAttribute("resource");
       String url = context.getStringAttribute("url");
       if (resource != null && url != null) {
-        throw new BuilderException("The properties element cannot specify both a URL and a resource based property file reference.  Please specify one or the other.");
+        throw new BuilderException(
+            "The properties element cannot specify both a URL and a resource based property file reference.  Please specify one or the other.");
       }
       if (resource != null) {
         defaults.putAll(Resources.getResourceAsProperties(resource));
@@ -241,8 +243,10 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   private void settingsElement(Properties props) {
-    configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
-    configuration.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
+    configuration
+        .setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
+    configuration.setAutoMappingUnknownColumnBehavior(
+        AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
     configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
     configuration.setProxyFactory((ProxyFactory) createInstance(props.getProperty("proxyFactory")));
     configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty("lazyLoadingEnabled"), false));
@@ -257,7 +261,8 @@ public class XMLConfigBuilder extends BaseBuilder {
     configuration.setSafeRowBoundsEnabled(booleanValueOf(props.getProperty("safeRowBoundsEnabled"), false));
     configuration.setLocalCacheScope(LocalCacheScope.valueOf(props.getProperty("localCacheScope", "SESSION")));
     configuration.setJdbcTypeForNull(JdbcType.valueOf(props.getProperty("jdbcTypeForNull", "OTHER")));
-    configuration.setLazyLoadTriggerMethods(stringSetValueOf(props.getProperty("lazyLoadTriggerMethods"), "equals,clone,hashCode,toString"));
+    configuration.setLazyLoadTriggerMethods(
+        stringSetValueOf(props.getProperty("lazyLoadTriggerMethods"), "equals,clone,hashCode,toString"));
     configuration.setSafeResultHandlerEnabled(booleanValueOf(props.getProperty("safeResultHandlerEnabled"), true));
     configuration.setDefaultScriptingLanguage(resolveClass(props.getProperty("defaultScriptingLanguage")));
     configuration.setDefaultEnumTypeHandler(resolveClass(props.getProperty("defaultEnumTypeHandler")));
@@ -279,8 +284,7 @@ public class XMLConfigBuilder extends BaseBuilder {
           TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));
           DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));
           DataSource dataSource = dsFactory.getDataSource();
-          Environment.Builder environmentBuilder = new Environment.Builder(id)
-              .transactionFactory(txFactory)
+          Environment.Builder environmentBuilder = new Environment.Builder(id).transactionFactory(txFactory)
               .dataSource(dataSource);
           configuration.setEnvironment(environmentBuilder.build());
         }
@@ -369,18 +373,21 @@ public class XMLConfigBuilder extends BaseBuilder {
           if (resource != null && url == null && mapperClass == null) {
             ErrorContext.instance().resource(resource);
             InputStream inputStream = Resources.getResourceAsStream(resource);
-            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource,
+                configuration.getSqlFragments());
             mapperParser.parse();
           } else if (resource == null && url != null && mapperClass == null) {
             ErrorContext.instance().resource(url);
             InputStream inputStream = Resources.getUrlAsStream(url);
-            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url,
+                configuration.getSqlFragments());
             mapperParser.parse();
           } else if (resource == null && url == null && mapperClass != null) {
             Class<?> mapperInterface = Resources.classForName(mapperClass);
             configuration.addMapper(mapperInterface);
           } else {
-            throw new BuilderException("A mapper element may only specify a url, resource or class, but not more than one.");
+            throw new BuilderException(
+                "A mapper element may only specify a url, resource or class, but not more than one.");
           }
         }
       }

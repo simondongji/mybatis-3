@@ -40,12 +40,12 @@ class BatchTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/batch_test/CreateDB.sql");
+        "org/apache/ibatis/submitted/batch_test/CreateDB.sql");
   }
 
   @Test
   void shouldGetAUserNoException() {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH,false)) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
       try {
         Mapper mapper = sqlSession.getMapper(Mapper.class);
 

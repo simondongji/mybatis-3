@@ -36,13 +36,14 @@ class MapperTypeParameterTest {
   @BeforeAll
   static void setUp() throws Exception {
     // create an SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/mapper_type_parameter/mybatis-config.xml")) {
+    try (Reader reader = Resources
+        .getResourceAsReader("org/apache/ibatis/submitted/mapper_type_parameter/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/mapper_type_parameter/CreateDB.sql");
+        "org/apache/ibatis/submitted/mapper_type_parameter/CreateDB.sql");
   }
 
   @Test

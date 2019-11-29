@@ -49,7 +49,7 @@ public class GenericTokenParser {
       return text;
     }
     char[] src = text.toCharArray();
-    //起始 查找位置
+    // 起始 查找位置
     int offset = 0;
     // 结果
     final StringBuilder builder = new StringBuilder();

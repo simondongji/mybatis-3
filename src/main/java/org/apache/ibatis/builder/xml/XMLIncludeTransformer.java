@@ -52,8 +52,11 @@ public class XMLIncludeTransformer {
 
   /**
    * Recursively apply includes through all SQL fragments.
-   * @param source Include node in DOM tree
-   * @param variablesContext Current context for static variables with values
+   * 
+   * @param source
+   *          Include node in DOM tree
+   * @param variablesContext
+   *          Current context for static variables with values
    */
   private void applyIncludes(Node source, final Properties variablesContext, boolean included) {
     if (source.getNodeName().equals("include")) {
@@ -81,8 +84,7 @@ public class XMLIncludeTransformer {
       for (int i = 0; i < children.getLength(); i++) {
         applyIncludes(children.item(i), variablesContext, included);
       }
-    } else if (included && source.getNodeType() == Node.TEXT_NODE
-        && !variablesContext.isEmpty()) {
+    } else if (included && source.getNodeType() == Node.TEXT_NODE && !variablesContext.isEmpty()) {
       // replace variables in text node
       source.setNodeValue(PropertyParser.parse(source.getNodeValue(), variablesContext));
     }
@@ -105,8 +107,11 @@ public class XMLIncludeTransformer {
 
   /**
    * Read placeholders and their values from include node definition.
-   * @param node Include node instance
-   * @param inheritedVariablesContext Current context used for replace variables in new variables values
+   * 
+   * @param node
+   *          Include node instance
+   * @param inheritedVariablesContext
+   *          Current context used for replace variables in new variables values
    * @return variables context from include instance (no inherited values)
    */
   private Properties getVariablesContext(Node node, Properties inheritedVariablesContext) {

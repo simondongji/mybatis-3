@@ -32,9 +32,12 @@ public final class ProviderContext {
   /**
    * Constructor.
    *
-   * @param mapperType A mapper interface type that specified provider
-   * @param mapperMethod A mapper method that specified provider
-   * @param databaseId A database id
+   * @param mapperType
+   *          A mapper interface type that specified provider
+   * @param mapperMethod
+   *          A mapper method that specified provider
+   * @param databaseId
+   *          A database id
    */
   ProviderContext(Class<?> mapperType, Method mapperMethod, String databaseId) {
     this.mapperType = mapperType;

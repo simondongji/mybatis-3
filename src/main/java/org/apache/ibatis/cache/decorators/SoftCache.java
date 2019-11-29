@@ -24,8 +24,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import org.apache.ibatis.cache.Cache;
 
 /**
- * Soft Reference cache decorator
- * Thanks to Dr. Heinz Kabutz for his guidance here.
+ * Soft Reference cache decorator Thanks to Dr. Heinz Kabutz for his guidance here.
  *
  * @author Clinton Begin
  */
@@ -52,7 +51,6 @@ public class SoftCache implements Cache {
     removeGarbageCollectedItems();
     return delegate.getSize();
   }
-
 
   public void setSize(int size) {
     this.numberOfHardLinks = size;

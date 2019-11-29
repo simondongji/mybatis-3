@@ -36,7 +36,7 @@ class FolderMapperTest {
   @Test
   void testFindWithChildren() throws Exception {
     try (Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:association_nested", "SA", "");
-         Statement stmt = conn.createStatement()) {
+        Statement stmt = conn.createStatement()) {
       stmt.execute("create table folder (id int, name varchar(100), parent_id int)");
       stmt.execute("insert into folder (id, name) values(1, 'Root')");
       stmt.execute("insert into folder values(2, 'Folder 1', 1)");
@@ -46,11 +46,7 @@ class FolderMapperTest {
     }
 
     /**
-     * Root/
-     *    Folder 1/
-     *    Folder 2/
-     *      Folder 2_1
-     *      Folder 2_2
+     * Root/ Folder 1/ Folder 2/ Folder 2_1 Folder 2_2
      */
 
     String resource = "org/apache/ibatis/submitted/association_nested/mybatis-config.xml";

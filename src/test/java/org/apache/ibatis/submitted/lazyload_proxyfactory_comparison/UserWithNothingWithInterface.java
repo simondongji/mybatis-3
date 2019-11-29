@@ -15,8 +15,7 @@
  */
 package org.apache.ibatis.submitted.lazyload_proxyfactory_comparison;
 
-public class UserWithNothingWithInterface
-implements Owned<Group> {
+public class UserWithNothingWithInterface implements Owned<Group> {
 
   private Integer id;
   private String name;

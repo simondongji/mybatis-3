@@ -192,17 +192,18 @@ class ReflectorTest {
   void shouldSettersWithUnrelatedArgTypesThrowException() {
     @SuppressWarnings("unused")
     class BeanClass {
-      public void setTheProp(String arg) {}
-      public void setTheProp(Integer arg) {}
+      public void setTheProp(String arg) {
+      }
+
+      public void setTheProp(Integer arg) {
+      }
     }
 
     ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
     when(reflectorFactory).findForClass(BeanClass.class);
-    then(caughtException()).isInstanceOf(ReflectionException.class)
-      .hasMessageContaining("theProp")
-      .hasMessageContaining("BeanClass")
-      .hasMessageContaining("java.lang.String")
-      .hasMessageContaining("java.lang.Integer");
+    then(caughtException()).isInstanceOf(ReflectionException.class).hasMessageContaining("theProp")
+        .hasMessageContaining("BeanClass").hasMessageContaining("java.lang.String")
+        .hasMessageContaining("java.lang.Integer");
   }
 
   @Test
@@ -210,12 +211,19 @@ class ReflectorTest {
     @SuppressWarnings("unused")
     class Bean {
       // JavaBean Spec allows this (see #906)
-      public boolean isBool() {return true;}
-      public boolean getBool() {return false;}
-      public void setBool(boolean bool) {}
+      public boolean isBool() {
+        return true;
+      }
+
+      public boolean getBool() {
+        return false;
+      }
+
+      public void setBool(boolean bool) {
+      }
     }
     ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
     Reflector reflector = reflectorFactory.findForClass(Bean.class);
-    assertTrue((Boolean)reflector.getGetInvoker("bool").invoke(new Bean(), new Byte[0]));
+    assertTrue((Boolean) reflector.getGetInvoker("bool").invoke(new Bean(), new Byte[0]));
   }
 }

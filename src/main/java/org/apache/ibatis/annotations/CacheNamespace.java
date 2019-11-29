@@ -46,6 +46,7 @@ public @interface CacheNamespace {
 
   /**
    * Property values for a implementation object.
+   * 
    * @since 3.4.2
    */
   Property[] properties() default {};

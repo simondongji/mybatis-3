@@ -19,9 +19,8 @@ import ognl.DefaultClassResolver;
 import org.apache.ibatis.io.Resources;
 
 /**
- * Custom ognl {@code ClassResolver} which behaves same like ognl's
- * {@code DefaultClassResolver}. But uses the {@code Resources}
- * utility class to find the target class instead of {@code Class#forName(String)}.
+ * Custom ognl {@code ClassResolver} which behaves same like ognl's {@code DefaultClassResolver}. But uses the
+ * {@code Resources} utility class to find the target class instead of {@code Class#forName(String)}.
  *
  * @author Daniel Guggi
  *

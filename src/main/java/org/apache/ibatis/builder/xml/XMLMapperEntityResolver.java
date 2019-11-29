@@ -50,11 +50,14 @@ public class XMLMapperEntityResolver implements EntityResolver {
   /**
    * Converts a public DTD into a local one.
    *
-   * @param publicId The public id that is what comes after "PUBLIC"
-   * @param systemId The system id that is what comes after the public id.
+   * @param publicId
+   *          The public id that is what comes after "PUBLIC"
+   * @param systemId
+   *          The system id that is what comes after the public id.
    * @return The InputSource for the DTD
    *
-   * @throws org.xml.sax.SAXException If anything goes wrong
+   * @throws org.xml.sax.SAXException
+   *           If anything goes wrong
    */
   @Override
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
@@ -63,7 +66,8 @@ public class XMLMapperEntityResolver implements EntityResolver {
         String lowerCaseSystemId = systemId.toLowerCase(Locale.ENGLISH);
         if (lowerCaseSystemId.contains(MYBATIS_CONFIG_SYSTEM) || lowerCaseSystemId.contains(IBATIS_CONFIG_SYSTEM)) {
           return getInputSource(MYBATIS_CONFIG_DTD, publicId, systemId);
-        } else if (lowerCaseSystemId.contains(MYBATIS_MAPPER_SYSTEM) || lowerCaseSystemId.contains(IBATIS_MAPPER_SYSTEM)) {
+        } else if (lowerCaseSystemId.contains(MYBATIS_MAPPER_SYSTEM)
+            || lowerCaseSystemId.contains(IBATIS_MAPPER_SYSTEM)) {
           return getInputSource(MYBATIS_MAPPER_DTD, publicId, systemId);
         }
       }

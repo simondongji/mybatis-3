@@ -37,7 +37,7 @@ class AwfulTableTest {
     }
 
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/awful_table/CreateDB.sql");
+        "org/apache/ibatis/submitted/awful_table/CreateDB.sql");
   }
 
   @Test

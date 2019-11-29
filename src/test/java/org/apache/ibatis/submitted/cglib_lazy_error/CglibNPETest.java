@@ -31,12 +31,13 @@ class CglibNPETest {
 
   @BeforeAll
   static void initDatabase() throws Exception {
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/cglib_lazy_error/ibatisConfig.xml")) {
+    try (Reader reader = Resources
+        .getResourceAsReader("org/apache/ibatis/submitted/cglib_lazy_error/ibatisConfig.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/cglib_lazy_error/CreateDB.sql");
+        "org/apache/ibatis/submitted/cglib_lazy_error/CreateDB.sql");
   }
 
   @Test
@@ -101,7 +102,7 @@ class CglibNPETest {
 
   @Test
   void testInsertBetweenTwoSelects() {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()){
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
       Person selected1 = personMapper.selectById(1);
       Person selected2 = personMapper.selectById(2);

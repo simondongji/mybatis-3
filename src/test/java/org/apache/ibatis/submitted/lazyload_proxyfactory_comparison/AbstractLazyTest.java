@@ -37,14 +37,15 @@ abstract class AbstractLazyTest {
   @BeforeEach
   void before() throws Exception {
     // create a SqlSessionFactory
-   SqlSessionFactory sqlSessionFactory;
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/lazyload_proxyfactory_comparison/mybatis-config-" + getConfiguration() + ".xml")) {
+    SqlSessionFactory sqlSessionFactory;
+    try (Reader reader = Resources.getResourceAsReader(
+        "org/apache/ibatis/submitted/lazyload_proxyfactory_comparison/mybatis-config-" + getConfiguration() + ".xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/lazyload_proxyfactory_comparison/CreateDB.sql");
+        "org/apache/ibatis/submitted/lazyload_proxyfactory_comparison/CreateDB.sql");
 
     sqlSession = sqlSessionFactory.openSession();
     mapper = sqlSession.getMapper(Mapper.class);

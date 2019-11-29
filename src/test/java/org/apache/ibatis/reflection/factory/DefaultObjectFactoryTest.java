@@ -41,8 +41,8 @@ class DefaultObjectFactoryTest {
   @Test
   void createClass() {
     DefaultObjectFactory defaultObjectFactory = new DefaultObjectFactory();
-    TestClass testClass = defaultObjectFactory.create(TestClass.class,
-        Arrays.asList(String.class, Integer.class), Arrays.asList("foo", 0));
+    TestClass testClass = defaultObjectFactory.create(TestClass.class, Arrays.asList(String.class, Integer.class),
+        Arrays.asList("foo", 0));
 
     Assertions.assertEquals((Integer) 0, testClass.myInteger, "myInteger didn't match expected");
     Assertions.assertEquals("foo", testClass.myString, "myString didn't match expected");
@@ -52,7 +52,8 @@ class DefaultObjectFactoryTest {
   void createClassThrowsProperErrorMsg() {
     DefaultObjectFactory defaultObjectFactory = new DefaultObjectFactory();
     try {
-      defaultObjectFactory.create(TestClass.class, Collections.singletonList(String.class), Collections.singletonList("foo"));
+      defaultObjectFactory.create(TestClass.class, Collections.singletonList(String.class),
+          Collections.singletonList("foo"));
       Assertions.fail("Should have thrown ReflectionException");
     } catch (Exception e) {
       Assertions.assertTrue(e instanceof ReflectionException, "Should be ReflectionException");
@@ -63,9 +64,9 @@ class DefaultObjectFactoryTest {
 
   @Test
   void creatHashMap() {
-     DefaultObjectFactory defaultObjectFactory=new DefaultObjectFactory();
-     Map  map= defaultObjectFactory.create(Map.class,null,null);
-     Assertions.assertTrue(map instanceof HashMap, "Should be HashMap");
+    DefaultObjectFactory defaultObjectFactory = new DefaultObjectFactory();
+    Map map = defaultObjectFactory.create(Map.class, null, null);
+    Assertions.assertTrue(map instanceof HashMap, "Should be HashMap");
   }
 
   @Test

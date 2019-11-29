@@ -35,7 +35,8 @@ class NamedConstructorArgsTest {
   @BeforeAll
   static void setUp() throws Exception {
     // create an SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/named_constructor_args/mybatis-config.xml")) {
+    try (Reader reader = Resources
+        .getResourceAsReader("org/apache/ibatis/submitted/named_constructor_args/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
@@ -45,7 +46,7 @@ class NamedConstructorArgsTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/named_constructor_args/CreateDB.sql");
+        "org/apache/ibatis/submitted/named_constructor_args/CreateDB.sql");
   }
 
   @Test

@@ -70,7 +70,7 @@ public class LruCache implements Cache {
 
   @Override
   public Object getObject(Object key) {
-    keyMap.get(key); //touch
+    keyMap.get(key); // touch
     return delegate.getObject(key);
   }
 

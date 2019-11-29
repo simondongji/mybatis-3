@@ -70,10 +70,13 @@ public final class MappedStatement {
       mappedStatement.sqlSource = sqlSource;
       mappedStatement.statementType = StatementType.PREPARED;
       mappedStatement.resultSetType = ResultSetType.DEFAULT;
-      mappedStatement.parameterMap = new ParameterMap.Builder(configuration, "defaultParameterMap", null, new ArrayList<>()).build();
+      mappedStatement.parameterMap = new ParameterMap.Builder(configuration, "defaultParameterMap", null,
+          new ArrayList<>()).build();
       mappedStatement.resultMaps = new ArrayList<>();
       mappedStatement.sqlCommandType = sqlCommandType;
-      mappedStatement.keyGenerator = configuration.isUseGeneratedKeys() && SqlCommandType.INSERT.equals(sqlCommandType) ? Jdbc3KeyGenerator.INSTANCE : NoKeyGenerator.INSTANCE;
+      mappedStatement.keyGenerator = configuration.isUseGeneratedKeys() && SqlCommandType.INSERT.equals(sqlCommandType)
+          ? Jdbc3KeyGenerator.INSTANCE
+          : NoKeyGenerator.INSTANCE;
       String logId = id;
       if (configuration.getLogPrefix() != null) {
         logId = configuration.getLogPrefix() + id;

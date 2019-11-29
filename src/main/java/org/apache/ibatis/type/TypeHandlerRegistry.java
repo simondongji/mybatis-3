@@ -53,7 +53,7 @@ import org.apache.ibatis.io.Resources;
  */
 public final class TypeHandlerRegistry {
 
-  private final Map<JdbcType, TypeHandler<?>>  jdbcTypeHandlerMap = new EnumMap<>(JdbcType.class);
+  private final Map<JdbcType, TypeHandler<?>> jdbcTypeHandlerMap = new EnumMap<>(JdbcType.class);
   private final Map<Type, Map<JdbcType, TypeHandler<?>>> typeHandlerMap = new ConcurrentHashMap<>();
   private final TypeHandler<Object> unknownTypeHandler = new UnknownTypeHandler(this);
   private final Map<Class<?>, TypeHandler<?>> allTypeHandlersMap = new HashMap<>();
@@ -164,9 +164,11 @@ public final class TypeHandlerRegistry {
   }
 
   /**
-   * Set a default {@link TypeHandler} class for {@link Enum}.
-   * A default {@link TypeHandler} is {@link org.apache.ibatis.type.EnumTypeHandler}.
-   * @param typeHandler a type handler class for {@link Enum}
+   * Set a default {@link TypeHandler} class for {@link Enum}. A default {@link TypeHandler} is
+   * {@link org.apache.ibatis.type.EnumTypeHandler}.
+   * 
+   * @param typeHandler
+   *          a type handler class for {@link Enum}
    * @since 3.4.5
    */
   public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
@@ -276,7 +278,7 @@ public final class TypeHandlerRegistry {
   }
 
   private Map<JdbcType, TypeHandler<?>> getJdbcHandlerMapForSuperclass(Class<?> clazz) {
-    Class<?> superclass =  clazz.getSuperclass();
+    Class<?> superclass = clazz.getSuperclass();
     if (superclass == null || Object.class.equals(superclass)) {
       return null;
     }
@@ -447,7 +449,7 @@ public final class TypeHandlerRegistry {
     resolverUtil.find(new ResolverUtil.IsA(TypeHandler.class), packageName);
     Set<Class<? extends Class<?>>> handlerSet = resolverUtil.getClasses();
     for (Class<?> type : handlerSet) {
-      //Ignore inner classes and interfaces (including package-info.java) and abstract classes
+      // Ignore inner classes and interfaces (including package-info.java) and abstract classes
       if (!type.isAnonymousClass() && !type.isInterface() && !Modifier.isAbstract(type.getModifiers())) {
         register(type);
       }

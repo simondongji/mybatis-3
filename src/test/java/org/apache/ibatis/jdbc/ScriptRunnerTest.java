@@ -76,11 +76,8 @@ class ScriptRunnerTest extends BaseDataTest {
   @Test
   void shouldRunScriptsUsingProperties() throws Exception {
     Properties props = Resources.getResourceAsProperties(JPETSTORE_PROPERTIES);
-    DataSource dataSource = new UnpooledDataSource(
-        props.getProperty("driver"),
-        props.getProperty("url"),
-        props.getProperty("username"),
-        props.getProperty("password"));
+    DataSource dataSource = new UnpooledDataSource(props.getProperty("driver"), props.getProperty("url"),
+        props.getProperty("username"), props.getProperty("password"));
     ScriptRunner runner = new ScriptRunner(dataSource.getConnection());
     runner.setAutoCommit(true);
     runner.setStopOnError(false);
@@ -94,8 +91,7 @@ class ScriptRunnerTest extends BaseDataTest {
   void shouldReturnWarningIfEndOfLineTerminatorNotFound() throws Exception {
     DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
     String resource = "org/apache/ibatis/jdbc/ScriptMissingEOLTerminator.sql";
-    try (Connection conn = ds.getConnection();
-         Reader reader = Resources.getResourceAsReader(resource)) {
+    try (Connection conn = ds.getConnection(); Reader reader = Resources.getResourceAsReader(resource)) {
       ScriptRunner runner = new ScriptRunner(conn);
       runner.setAutoCommit(true);
       runner.setStopOnError(false);
@@ -115,8 +111,7 @@ class ScriptRunnerTest extends BaseDataTest {
   void commentAferStatementDelimiterShouldNotCauseRunnerFail() throws Exception {
     DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
     String resource = "org/apache/ibatis/jdbc/ScriptCommentAfterEOLTerminator.sql";
-    try (Connection conn = ds.getConnection();
-         Reader reader = Resources.getResourceAsReader(resource)) {
+    try (Connection conn = ds.getConnection(); Reader reader = Resources.getResourceAsReader(resource)) {
       ScriptRunner runner = new ScriptRunner(conn);
       runner.setAutoCommit(true);
       runner.setStopOnError(true);
@@ -131,8 +126,7 @@ class ScriptRunnerTest extends BaseDataTest {
   void shouldReturnWarningIfNotTheCurrentDelimiterUsed() throws Exception {
     DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
     String resource = "org/apache/ibatis/jdbc/ScriptChangingDelimiterMissingDelimiter.sql";
-    try (Connection conn = ds.getConnection();
-         Reader reader = Resources.getResourceAsReader(resource)) {
+    try (Connection conn = ds.getConnection(); Reader reader = Resources.getResourceAsReader(resource)) {
       ScriptRunner runner = new ScriptRunner(conn);
       runner.setAutoCommit(false);
       runner.setStopOnError(true);
@@ -151,8 +145,7 @@ class ScriptRunnerTest extends BaseDataTest {
   void changingDelimiterShouldNotCauseRunnerFail() throws Exception {
     DataSource ds = createUnpooledDataSource(JPETSTORE_PROPERTIES);
     String resource = "org/apache/ibatis/jdbc/ScriptChangingDelimiter.sql";
-    try (Connection conn = ds.getConnection();
-         Reader reader = Resources.getResourceAsReader(resource)) {
+    try (Connection conn = ds.getConnection(); Reader reader = Resources.getResourceAsReader(resource)) {
       ScriptRunner runner = new ScriptRunner(conn);
       runner.setAutoCommit(false);
       runner.setStopOnError(true);
@@ -179,10 +172,8 @@ class ScriptRunnerTest extends BaseDataTest {
       Reader reader = new StringReader("select userid from account where userid = 'j2ee';");
       runner.runScript(reader);
 
-      assertEquals(
-              "select userid from account where userid = 'j2ee'" + LINE_SEPARATOR
-                      + LINE_SEPARATOR + "USERID\t" + LINE_SEPARATOR
-                      + "j2ee\t" + LINE_SEPARATOR, sw.toString());
+      assertEquals("select userid from account where userid = 'j2ee'" + LINE_SEPARATOR + LINE_SEPARATOR + "USERID\t"
+          + LINE_SEPARATOR + "j2ee\t" + LINE_SEPARATOR, sw.toString());
     }
   }
 
@@ -202,10 +193,8 @@ class ScriptRunnerTest extends BaseDataTest {
       Reader reader = new StringReader("select userid from account where userid = 'j2ee';");
       runner.runScript(reader);
 
-      assertEquals(
-              "select userid from account where userid = 'j2ee';" + LINE_SEPARATOR
-                      + LINE_SEPARATOR + "USERID\t" + LINE_SEPARATOR
-                      + "j2ee\t" + LINE_SEPARATOR, sw.toString());
+      assertEquals("select userid from account where userid = 'j2ee';" + LINE_SEPARATOR + LINE_SEPARATOR + "USERID\t"
+          + LINE_SEPARATOR + "j2ee\t" + LINE_SEPARATOR, sw.toString());
     }
   }
 
@@ -233,20 +222,13 @@ class ScriptRunnerTest extends BaseDataTest {
     when(stmt.getUpdateCount()).thenReturn(-1);
     ScriptRunner runner = new ScriptRunner(conn);
 
-    String sql = "-- @DELIMITER | \n"
-        + "line 1;\n"
-        + "line 2;\n"
-        + "|\n"
-        + "//  @DELIMITER  ;\n"
-        + "line 3; \n"
-        + "-- //@deLimiTer $  blah\n"
-        + "line 4$\n"
-        + "// //@DELIMITER %\n"
-        + "line 5%\n";
+    String sql = "-- @DELIMITER | \n" + "line 1;\n" + "line 2;\n" + "|\n" + "//  @DELIMITER  ;\n" + "line 3; \n"
+        + "-- //@deLimiTer $  blah\n" + "line 4$\n" + "// //@DELIMITER %\n" + "line 5%\n";
     Reader reader = new StringReader(sql);
     runner.runScript(reader);
 
-    verify(stmt, Mockito.times(1)).execute(eq("line 1;" + LINE_SEPARATOR + "line 2;" + LINE_SEPARATOR + LINE_SEPARATOR));
+    verify(stmt, Mockito.times(1))
+        .execute(eq("line 1;" + LINE_SEPARATOR + "line 2;" + LINE_SEPARATOR + LINE_SEPARATOR));
     verify(stmt, Mockito.times(1)).execute(eq("line 3" + LINE_SEPARATOR));
     verify(stmt, Mockito.times(1)).execute(eq("line 4" + LINE_SEPARATOR));
     verify(stmt, Mockito.times(1)).execute(eq("line 5" + LINE_SEPARATOR));
@@ -272,16 +254,12 @@ class ScriptRunnerTest extends BaseDataTest {
     when(stmt.getUpdateCount()).thenReturn(-1);
     ScriptRunner runner = new ScriptRunner(conn);
 
-    String sql = "-- @DELIMITER || \n"
-        + "line 1;\n"
-        + "line 2;\n"
-        + "||\n"
-        + "//  @DELIMITER  ;\n"
-        + "line 3; \n";
+    String sql = "-- @DELIMITER || \n" + "line 1;\n" + "line 2;\n" + "||\n" + "//  @DELIMITER  ;\n" + "line 3; \n";
     Reader reader = new StringReader(sql);
     runner.runScript(reader);
 
-    verify(stmt, Mockito.times(1)).execute(eq("line 1;" + LINE_SEPARATOR + "line 2;" + LINE_SEPARATOR + LINE_SEPARATOR));
+    verify(stmt, Mockito.times(1))
+        .execute(eq("line 1;" + LINE_SEPARATOR + "line 2;" + LINE_SEPARATOR + LINE_SEPARATOR));
     verify(stmt, Mockito.times(1)).execute(eq("line 3" + LINE_SEPARATOR));
   }
 }

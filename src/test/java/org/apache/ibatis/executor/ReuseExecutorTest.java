@@ -32,6 +32,6 @@ class ReuseExecutorTest extends BaseExecutorTest {
 
   @Override
   protected Executor createExecutor(Transaction transaction) {
-    return new ReuseExecutor(config,transaction);
+    return new ReuseExecutor(config, transaction);
   }
 }

@@ -39,13 +39,14 @@ class PropertiesInMappersTest {
     p.put("property", "id");
 
     // create a SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/propertiesinmapperfiles/mybatis-config.xml")) {
+    try (Reader reader = Resources
+        .getResourceAsReader("org/apache/ibatis/submitted/propertiesinmapperfiles/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, p);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/propertiesinmapperfiles/CreateDB.sql");
+        "org/apache/ibatis/submitted/propertiesinmapperfiles/CreateDB.sql");
   }
 
   @Test

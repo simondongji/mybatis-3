@@ -46,15 +46,13 @@ public class UnknownTypeHandler extends BaseTypeHandler<Object> {
   }
 
   @Override
-  public Object getNullableResult(ResultSet rs, String columnName)
-      throws SQLException {
+  public Object getNullableResult(ResultSet rs, String columnName) throws SQLException {
     TypeHandler<?> handler = resolveTypeHandler(rs, columnName);
     return handler.getResult(rs, columnName);
   }
 
   @Override
-  public Object getNullableResult(ResultSet rs, int columnIndex)
-      throws SQLException {
+  public Object getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
     TypeHandler<?> handler = resolveTypeHandler(rs.getMetaData(), columnIndex);
     if (handler == null || handler instanceof UnknownTypeHandler) {
       handler = OBJECT_TYPE_HANDLER;
@@ -63,8 +61,7 @@ public class UnknownTypeHandler extends BaseTypeHandler<Object> {
   }
 
   @Override
-  public Object getNullableResult(CallableStatement cs, int columnIndex)
-      throws SQLException {
+  public Object getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
     return cs.getObject(columnIndex);
   }
 
@@ -84,13 +81,13 @@ public class UnknownTypeHandler extends BaseTypeHandler<Object> {
 
   private TypeHandler<?> resolveTypeHandler(ResultSet rs, String column) {
     try {
-      Map<String,Integer> columnIndexLookup;
+      Map<String, Integer> columnIndexLookup;
       columnIndexLookup = new HashMap<>();
       ResultSetMetaData rsmd = rs.getMetaData();
       int count = rsmd.getColumnCount();
       for (int i = 1; i <= count; i++) {
         String name = rsmd.getColumnName(i);
-        columnIndexLookup.put(name,i);
+        columnIndexLookup.put(name, i);
       }
       Integer columnIndex = columnIndexLookup.get(column);
       TypeHandler<?> handler = null;

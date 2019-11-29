@@ -42,15 +42,16 @@ class GenericTokenParserTest {
 
   @Test
   void shouldDemonstrateGenericTokenReplacement() {
-    GenericTokenParser parser = new GenericTokenParser("${", "}", new VariableTokenHandler(new HashMap<String, String>() {
-      {
-        put("first_name", "James");
-        put("initial", "T");
-        put("last_name", "Kirk");
-        put("var{with}brace", "Hiya");
-        put("", "");
-      }
-    }));
+    GenericTokenParser parser = new GenericTokenParser("${", "}",
+        new VariableTokenHandler(new HashMap<String, String>() {
+          {
+            put("first_name", "James");
+            put("initial", "T");
+            put("last_name", "Kirk");
+            put("var{with}brace", "Hiya");
+            put("", "");
+          }
+        }));
 
     assertEquals("James T Kirk reporting.", parser.parse("${first_name} ${initial} ${last_name} reporting."));
     assertEquals("Hello captain James T Kirk", parser.parse("Hello captain ${first_name} ${initial} ${last_name}"));
@@ -91,14 +92,15 @@ class GenericTokenParserTest {
   void shouldParseFastOnJdk7u6() {
     Assertions.assertTimeout(Duration.ofMillis(1), () -> {
       // issue #760
-      GenericTokenParser parser = new GenericTokenParser("${", "}", new VariableTokenHandler(new HashMap<String, String>() {
-        {
-          put("first_name", "James");
-          put("initial", "T");
-          put("last_name", "Kirk");
-          put("", "");
-        }
-      }));
+      GenericTokenParser parser = new GenericTokenParser("${", "}",
+          new VariableTokenHandler(new HashMap<String, String>() {
+            {
+              put("first_name", "James");
+              put("initial", "T");
+              put("last_name", "Kirk");
+              put("", "");
+            }
+          }));
 
       StringBuilder input = new StringBuilder();
       for (int i = 0; i < 10000; i++) {

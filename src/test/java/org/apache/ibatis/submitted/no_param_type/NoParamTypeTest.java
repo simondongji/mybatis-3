@@ -37,13 +37,14 @@ class NoParamTypeTest {
   @BeforeAll
   static void setUp() throws Exception {
     // create a SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/no_param_type/mybatis-config.xml")) {
+    try (
+        Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/no_param_type/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/no_param_type/CreateDB.sql");
+        "org/apache/ibatis/submitted/no_param_type/CreateDB.sql");
   }
 
   @Test

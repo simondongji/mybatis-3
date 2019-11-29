@@ -79,7 +79,7 @@ public class ResultSetWrapper {
   }
 
   public JdbcType getJdbcType(String columnName) {
-    for (int i = 0 ; i < columnNames.size(); i++) {
+    for (int i = 0; i < columnNames.size(); i++) {
       if (columnNames.get(i).equalsIgnoreCase(columnName)) {
         return jdbcTypes.get(i);
       }
@@ -88,9 +88,8 @@ public class ResultSetWrapper {
   }
 
   /**
-   * Gets the type handler to use when reading the result set.
-   * Tries to get from the TypeHandlerRegistry by searching for the property type.
-   * If not found it gets the column JDBC type and tries to get a handler for it.
+   * Gets the type handler to use when reading the result set. Tries to get from the TypeHandlerRegistry by searching
+   * for the property type. If not found it gets the column JDBC type and tries to get a handler for it.
    *
    * @param propertyType
    * @param columnName

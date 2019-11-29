@@ -154,7 +154,8 @@ public class TypeAliasRegistry {
     // issue #748
     String key = alias.toLowerCase(Locale.ENGLISH);
     if (typeAliases.containsKey(key) && typeAliases.get(key) != null && !typeAliases.get(key).equals(value)) {
-      throw new TypeException("The alias '" + alias + "' is already mapped to the value '" + typeAliases.get(key).getName() + "'.");
+      throw new TypeException(
+          "The alias '" + alias + "' is already mapped to the value '" + typeAliases.get(key).getName() + "'.");
     }
     typeAliases.put(key, value);
   }

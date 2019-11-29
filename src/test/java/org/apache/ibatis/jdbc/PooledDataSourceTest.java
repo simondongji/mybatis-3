@@ -98,8 +98,8 @@ class PooledDataSourceTest extends BaseDataTest {
     // Requirements:
     // 1. MySQL JDBC driver dependency.
     // 2. MySQL server instance with the following.
-    //  - CREATE DATABASE `test`;
-    //  - SET GLOBAL wait_timeout=3;
+    // - CREATE DATABASE `test`;
+    // - SET GLOBAL wait_timeout=3;
     // 3. Tweak the connection info below.
     final String URL = "jdbc:mysql://localhost:3306/test";
     final String USERNAME = "admin";
@@ -137,8 +137,7 @@ class PooledDataSourceTest extends BaseDataTest {
   }
 
   private void exexuteQuery(Connection con) throws SQLException {
-    try (PreparedStatement st = con.prepareStatement("select 1");
-         ResultSet rs = st.executeQuery()) {
+    try (PreparedStatement st = con.prepareStatement("select 1"); ResultSet rs = st.executeQuery()) {
       while (rs.next()) {
         assertEquals(1, rs.getInt(1));
       }

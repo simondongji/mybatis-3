@@ -31,19 +31,16 @@ class ResultMappingTest {
   @Test
   void shouldThrowErrorWhenBothResultMapAndNestedSelectAreSet() {
     Assertions.assertThrows(IllegalStateException.class, () -> {
-      new ResultMapping.Builder(configuration, "prop")
-        .nestedQueryId("nested query ID")
-        .nestedResultMapId("nested resultMap")
-        .build();
+      new ResultMapping.Builder(configuration, "prop").nestedQueryId("nested query ID")
+          .nestedResultMapId("nested resultMap").build();
     });
   }
 
-  //Issue 4: column is mandatory on nested queries
+  // Issue 4: column is mandatory on nested queries
   @Test
   void shouldFailWithAMissingColumnInNetstedSelect() {
-    Assertions.assertThrows(IllegalStateException.class, () -> new ResultMapping.Builder(configuration, "prop")
-        .nestedQueryId("nested query ID")
-        .build());
+    Assertions.assertThrows(IllegalStateException.class,
+        () -> new ResultMapping.Builder(configuration, "prop").nestedQueryId("nested query ID").build());
   }
 
 }

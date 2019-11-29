@@ -231,9 +231,9 @@ class MetaObjectTest {
     assertEquals(3, metaMap.getSetterNames().length);
 
     @SuppressWarnings("unchecked")
-    Map<String,String> name = (Map<String,String>) metaMap.getValue("name");
+    Map<String, String> name = (Map<String, String>) metaMap.getValue("name");
     @SuppressWarnings("unchecked")
-    Map<String,String> address = (Map<String,String>) metaMap.getValue("address");
+    Map<String, String> address = (Map<String, String>) metaMap.getValue("address");
 
     assertEquals("Clinton", name.get("first"));
     assertEquals("1 Some Street", address.get("street"));
@@ -270,7 +270,8 @@ class MetaObjectTest {
 
   @Test
   void shouldUseObjectWrapperFactoryWhenSet() {
-    MetaObject meta = MetaObject.forObject(new Author(), SystemMetaObject.DEFAULT_OBJECT_FACTORY, new CustomBeanWrapperFactory(), new DefaultReflectorFactory());
+    MetaObject meta = MetaObject.forObject(new Author(), SystemMetaObject.DEFAULT_OBJECT_FACTORY,
+        new CustomBeanWrapperFactory(), new DefaultReflectorFactory());
     assertEquals(CustomBeanWrapper.class, meta.getObjectWrapper().getClass());
 
     // Make sure the old default factory is in place and still works

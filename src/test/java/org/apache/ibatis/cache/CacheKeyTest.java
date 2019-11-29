@@ -104,11 +104,11 @@ class CacheKeyTest {
   }
 
   private static <T> T serialize(T object) throws Exception {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      new ObjectOutputStream(baos).writeObject(object);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    new ObjectOutputStream(baos).writeObject(object);
 
-      ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-      return (T) new ObjectInputStream(bais).readObject();
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    return (T) new ObjectInputStream(bais).readObject();
   }
 
 }

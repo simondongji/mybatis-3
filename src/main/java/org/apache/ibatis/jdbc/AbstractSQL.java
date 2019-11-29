@@ -265,7 +265,8 @@ public abstract class AbstractSQL<T> {
   /**
    * Set the limit variable string(e.g. {@code "#{limit}"}).
    *
-   * @param variable a limit variable string
+   * @param variable
+   *          a limit variable string
    * @return a self instance
    * @since 3.5.2
    */
@@ -277,7 +278,8 @@ public abstract class AbstractSQL<T> {
   /**
    * Set the limit value.
    *
-   * @param value an offset value
+   * @param value
+   *          an offset value
    * @return a self instance
    * @since 3.5.2
    */
@@ -289,7 +291,8 @@ public abstract class AbstractSQL<T> {
   /**
    * Set the offset variable string(e.g. {@code "#{offset}"}).
    *
-   * @param variable a offset variable string
+   * @param variable
+   *          a offset variable string
    * @return a self instance
    * @since 3.5.2
    */
@@ -301,7 +304,8 @@ public abstract class AbstractSQL<T> {
   /**
    * Set the offset value.
    *
-   * @param value an offset value
+   * @param value
+   *          an offset value
    * @return a self instance
    * @since 3.5.2
    */
@@ -356,7 +360,10 @@ public abstract class AbstractSQL<T> {
   private static class SQLStatement {
 
     public enum StatementType {
-      DELETE, INSERT, SELECT, UPDATE
+      DELETE,
+      INSERT,
+      SELECT,
+      UPDATE
     }
 
     StatementType statementType;
@@ -380,11 +387,11 @@ public abstract class AbstractSQL<T> {
     String limit;
 
     public SQLStatement() {
-        // Prevent Synthetic Access
+      // Prevent Synthetic Access
     }
 
     private void sqlClause(SafeAppendable builder, String keyword, List<String> parts, String open, String close,
-                           String conjunction) {
+        String conjunction) {
       if (!parts.isEmpty()) {
         if (!builder.isEmpty()) {
           builder.append("\n");

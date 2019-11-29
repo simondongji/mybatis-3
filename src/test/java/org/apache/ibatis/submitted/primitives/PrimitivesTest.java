@@ -40,7 +40,7 @@ class PrimitivesTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/primitives/CreateDB.sql");
+        "org/apache/ibatis/submitted/primitives/CreateDB.sql");
   }
 
   @Test // issue #69

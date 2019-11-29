@@ -57,7 +57,7 @@ class BigIntegerTypeHandlerTest extends BaseTypeHandlerTest {
   @Test
   public void shouldGetResultFromResultSetByPosition() throws Exception {
     when(rs.getBigDecimal(1)).thenReturn(new BigDecimal("707070656505050302797979792923232303"));
-    assertEquals(new BigInteger("707070656505050302797979792923232303"), TYPE_HANDLER.getResult(rs,1 ));
+    assertEquals(new BigInteger("707070656505050302797979792923232303"), TYPE_HANDLER.getResult(rs, 1));
     verify(rs, never()).wasNull();
   }
 
@@ -65,7 +65,7 @@ class BigIntegerTypeHandlerTest extends BaseTypeHandlerTest {
   @Test
   public void shouldGetResultNullFromResultSetByPosition() throws Exception {
     when(rs.getBigDecimal(1)).thenReturn(null);
-    assertNull(TYPE_HANDLER.getResult(rs,1 ));
+    assertNull(TYPE_HANDLER.getResult(rs, 1));
     verify(rs, never()).wasNull();
   }
 

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2009-2018 the original author or authors.
+ *    Copyright 2009-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -48,7 +48,8 @@ public interface Mapper extends BaseMapper<User> {
   List<User> getUsersByNameUsingMap(String name, String orderByColumn);
 
   @SelectProvider(type = OurSqlBuilder.class, method = "buildGetUsersByNameWithParamNameAndOrderByQuery")
-  List<User> getUsersByNameWithParamNameAndOrderBy(@Param("name") String name, @Param("orderByColumn") String orderByColumn);
+  List<User> getUsersByNameWithParamNameAndOrderBy(@Param("name") String name,
+      @Param("orderByColumn") String orderByColumn);
 
   @SelectProvider(type = OurSqlBuilder.class, method = "buildGetUsersByNameWithParamNameQuery")
   List<User> getUsersByNameWithParamName(@Param("name") String name);
@@ -56,10 +57,10 @@ public interface Mapper extends BaseMapper<User> {
   @InsertProvider(type = OurSqlBuilder.class, method = "buildInsert")
   void insert(User user);
 
-  @UpdateProvider(type= OurSqlBuilder.class, method= "buildUpdate")
+  @UpdateProvider(type = OurSqlBuilder.class, method = "buildUpdate")
   void update(User user);
 
-  @DeleteProvider(type= OurSqlBuilder.class, method= "buildDelete")
+  @DeleteProvider(type = OurSqlBuilder.class, method = "buildDelete")
   void delete(Integer id);
 
 }

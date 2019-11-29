@@ -19,43 +19,32 @@ import org.apache.ibatis.annotations.*;
 
 public interface PersonMapper {
 
-    public Person getWithoutComplex(Long id);
-    public Person getWithComplex(Long id);
-    public Person getParentWithComplex(Person person);
+  public Person getWithoutComplex(Long id);
 
-    @Select({
-      "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName",
-      "FROM Person",
-      "WHERE id = #{id,jdbcType=INTEGER}"
-    })
-    @ResultMap("personMapComplex")
-    public Person getWithComplex2(Long id);
+  public Person getWithComplex(Long id);
 
-    @Select({
-        "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName",
-        "FROM Person",
-        "WHERE id = #{id,jdbcType=INTEGER}"
-      })
-    @ResultMap("org.apache.ibatis.submitted.complex_column.PersonMapper.personMapComplex")
-    public Person getWithComplex3(Long id);
+  public Person getParentWithComplex(Person person);
 
+  @Select({ "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName", "FROM Person",
+      "WHERE id = #{id,jdbcType=INTEGER}" })
+  @ResultMap("personMapComplex")
+  public Person getWithComplex2(Long id);
 
-    @Select({
-            "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName",
-            "FROM Person",
-            "WHERE id = #{id,jdbcType=INTEGER}"
-    })
-    @Results({
-            @Result(id=true, column = "id", property = "id"),
-            @Result(property = "parent", column="{firstName=parent_firstName,lastName=parent_lastName}", one=@One(select="getParentWithParamAttributes"))
+  @Select({ "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName", "FROM Person",
+      "WHERE id = #{id,jdbcType=INTEGER}" })
+  @ResultMap("org.apache.ibatis.submitted.complex_column.PersonMapper.personMapComplex")
+  public Person getWithComplex3(Long id);
 
-    })
-    Person getComplexWithParamAttributes(Long id);
+  @Select({ "SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName", "FROM Person",
+      "WHERE id = #{id,jdbcType=INTEGER}" })
+  @Results({ @Result(id = true, column = "id", property = "id"),
+      @Result(property = "parent", column = "{firstName=parent_firstName,lastName=parent_lastName}", one = @One(select = "getParentWithParamAttributes"))
 
-    @Select("SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName" +
-            " FROM Person" +
-            " WHERE firstName = #{firstName,jdbcType=VARCHAR}" +
-            " AND lastName = #{lastName,jdbcType=VARCHAR}" +
-            " LIMIT 1")
-    Person getParentWithParamAttributes(@Param("firstName") String firstName, @Param("lastName") String lastname);
+  })
+  Person getComplexWithParamAttributes(Long id);
+
+  @Select("SELECT id, firstName, lastName, parent_id, parent_firstName, parent_lastName" + " FROM Person"
+      + " WHERE firstName = #{firstName,jdbcType=VARCHAR}" + " AND lastName = #{lastName,jdbcType=VARCHAR}"
+      + " LIMIT 1")
+  Person getParentWithParamAttributes(@Param("firstName") String firstName, @Param("lastName") String lastname);
 }

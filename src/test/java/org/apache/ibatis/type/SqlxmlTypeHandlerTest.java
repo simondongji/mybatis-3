@@ -58,7 +58,7 @@ class SqlxmlTypeHandlerTest extends BaseTypeHandlerTest {
     sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/type/SqlxmlTypeHandlerTest.sql");
+        "org/apache/ibatis/type/SqlxmlTypeHandlerTest.sql");
   }
 
   @Override
@@ -129,8 +129,7 @@ class SqlxmlTypeHandlerTest extends BaseTypeHandlerTest {
     try (SqlSession session = sqlSessionFactory.openSession()) {
       Mapper mapper = session.getMapper(Mapper.class);
       XmlBean bean = mapper.select(1);
-      assertEquals("<title>XML data</title>",
-          bean.getContent());
+      assertEquals("<title>XML data</title>", bean.getContent());
     }
   }
 

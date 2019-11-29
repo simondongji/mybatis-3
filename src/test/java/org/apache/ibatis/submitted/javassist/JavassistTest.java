@@ -43,7 +43,7 @@ class JavassistTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/javassist/CreateDB.sql");
+        "org/apache/ibatis/submitted/javassist/CreateDB.sql");
   }
 
   @Test

@@ -43,7 +43,7 @@ class BlogTest {
     }
 
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/parent_reference_3level/CreateDB.sql");
+        "org/apache/ibatis/submitted/parent_reference_3level/CreateDB.sql");
   }
 
   @Test

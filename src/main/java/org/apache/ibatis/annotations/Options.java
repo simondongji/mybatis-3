@@ -32,8 +32,7 @@ import org.apache.ibatis.mapping.StatementType;
 @Target(ElementType.METHOD)
 public @interface Options {
   /**
-   * The options for the {@link Options#flushCache()}.
-   * The default is {@link FlushCachePolicy#DEFAULT}
+   * The options for the {@link Options#flushCache()}. The default is {@link FlushCachePolicy#DEFAULT}
    */
   enum FlushCachePolicy {
     /** <code>false</code> for select statement; <code>true</code> for insert/update/delete statement. */

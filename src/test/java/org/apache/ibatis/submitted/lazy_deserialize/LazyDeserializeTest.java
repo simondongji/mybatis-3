@@ -56,7 +56,7 @@ class LazyDeserializeTest {
     }
 
     BaseDataTest.runScript(factory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/lazy_deserialize/CreateDB.sql");
+        "org/apache/ibatis/submitted/lazy_deserialize/CreateDB.sql");
   }
 
   @Test
@@ -94,7 +94,7 @@ class LazyDeserializeTest {
 
   private byte[] serializeFoo(final LazyObjectFoo foo) throws Exception {
     try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-         ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+        ObjectOutputStream oos = new ObjectOutputStream(bos)) {
       oos.writeObject(foo);
       return bos.toByteArray();
     }
@@ -102,7 +102,7 @@ class LazyDeserializeTest {
 
   private LazyObjectFoo deserializeFoo(final byte[] serializedFoo) throws Exception {
     try (ByteArrayInputStream bis = new ByteArrayInputStream(serializedFoo);
-         ObjectInputStream ios = new ObjectInputStream(bis)) {
+        ObjectInputStream ios = new ObjectInputStream(bis)) {
       return (LazyObjectFoo) ios.readObject();
     }
   }

@@ -49,7 +49,8 @@ class ManagedTransactionFactoryTest extends BaseDataTest {
   }
 
   @Test
-  void shouldEnsureThatCallsToManagedTransactionAPIDoNotForwardToManagedConnectionsAndDoesNotCloseConnection() throws Exception {
+  void shouldEnsureThatCallsToManagedTransactionAPIDoNotForwardToManagedConnectionsAndDoesNotCloseConnection()
+      throws Exception {
     TransactionFactory tf = new ManagedTransactionFactory();
     Properties props = new Properties();
     props.setProperty("closeConnection", "false");

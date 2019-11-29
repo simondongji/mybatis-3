@@ -39,13 +39,14 @@ class NestedResultHandlerAssociationTest {
   @BeforeAll
   static void setUp() throws Exception {
     // create an SqlSessionFactory
-    try (Reader reader = Resources.getResourceAsReader("org/apache/ibatis/submitted/nestedresulthandler_association/mybatis-config.xml")) {
+    try (Reader reader = Resources
+        .getResourceAsReader("org/apache/ibatis/submitted/nestedresulthandler_association/mybatis-config.xml")) {
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
     }
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/nestedresulthandler_association/CreateDB.sql");
+        "org/apache/ibatis/submitted/nestedresulthandler_association/CreateDB.sql");
   }
 
   @Test

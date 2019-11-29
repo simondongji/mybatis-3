@@ -50,7 +50,6 @@ public class XMLScriptBuilder extends BaseBuilder {
     initNodeHandlerMap();
   }
 
-
   private void initNodeHandlerMap() {
     nodeHandlerMap.put("trim", new TrimHandler());
     nodeHandlerMap.put("where", new WhereHandler());
@@ -176,7 +175,8 @@ public class XMLScriptBuilder extends BaseBuilder {
       String open = nodeToHandle.getStringAttribute("open");
       String close = nodeToHandle.getStringAttribute("close");
       String separator = nodeToHandle.getStringAttribute("separator");
-      ForEachSqlNode forEachSqlNode = new ForEachSqlNode(configuration, mixedSqlNode, collection, index, item, open, close, separator);
+      ForEachSqlNode forEachSqlNode = new ForEachSqlNode(configuration, mixedSqlNode, collection, index, item, open,
+          close, separator);
       targetContents.add(forEachSqlNode);
     }
   }
@@ -222,7 +222,8 @@ public class XMLScriptBuilder extends BaseBuilder {
       targetContents.add(chooseSqlNode);
     }
 
-    private void handleWhenOtherwiseNodes(XNode chooseSqlNode, List<SqlNode> ifSqlNodes, List<SqlNode> defaultSqlNodes) {
+    private void handleWhenOtherwiseNodes(XNode chooseSqlNode, List<SqlNode> ifSqlNodes,
+        List<SqlNode> defaultSqlNodes) {
       List<XNode> children = chooseSqlNode.getChildren();
       for (XNode child : children) {
         String nodeName = child.getNode().getNodeName();

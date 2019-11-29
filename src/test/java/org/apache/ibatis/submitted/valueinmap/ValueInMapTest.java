@@ -44,7 +44,7 @@ class ValueInMapTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/valueinmap/CreateDB.sql");
+        "org/apache/ibatis/submitted/valueinmap/CreateDB.sql");
   }
 
   @Test // issue #165
@@ -64,7 +64,7 @@ class ValueInMapTest {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       List<String> list = new ArrayList<>();
       list.add("users");
-      Assertions.assertThrows(PersistenceException.class, () -> sqlSession.selectOne("count2",list));
+      Assertions.assertThrows(PersistenceException.class, () -> sqlSession.selectOne("count2", list));
     }
   }
 

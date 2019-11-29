@@ -47,7 +47,7 @@ class LazyPropertiesTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/lazy_properties/CreateDB.sql");
+        "org/apache/ibatis/submitted/lazy_properties/CreateDB.sql");
   }
 
   @Test
@@ -137,8 +137,7 @@ class LazyPropertiesTest {
   void verifyCustomLazyLoadTriggerMethods() {
     Configuration configuration = sqlSessionFactory.getConfiguration();
     configuration.setAggressiveLazyLoading(false);
-    configuration
-        .setLazyLoadTriggerMethods(new HashSet<>(Collections.singleton("trigger")));
+    configuration.setLazyLoadTriggerMethods(new HashSet<>(Collections.singleton("trigger")));
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
       User user = mapper.getUser(1);

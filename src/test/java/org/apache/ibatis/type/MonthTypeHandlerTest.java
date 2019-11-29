@@ -50,7 +50,9 @@ class MonthTypeHandlerTest extends BaseTypeHandlerTest {
       TYPE_HANDLER.getResult(rs, "column");
       fail();
     } catch (ResultMapException e) {
-      assertEquals("Error attempting to get column 'column' from result set.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0", e.getMessage());
+      assertEquals(
+          "Error attempting to get column 'column' from result set.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0",
+          e.getMessage());
     }
   }
 
@@ -73,7 +75,9 @@ class MonthTypeHandlerTest extends BaseTypeHandlerTest {
       TYPE_HANDLER.getResult(rs, 1);
       fail();
     } catch (ResultMapException e) {
-      assertEquals("Error attempting to get column #1 from result set.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0", e.getMessage());
+      assertEquals(
+          "Error attempting to get column #1 from result set.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0",
+          e.getMessage());
     }
   }
 
@@ -96,7 +100,9 @@ class MonthTypeHandlerTest extends BaseTypeHandlerTest {
       TYPE_HANDLER.getResult(cs, 1);
       fail();
     } catch (ResultMapException e) {
-      assertEquals("Error attempting to get column #1 from callable statement.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0", e.getMessage());
+      assertEquals(
+          "Error attempting to get column #1 from callable statement.  Cause: java.time.DateTimeException: Invalid value for MonthOfYear: 0",
+          e.getMessage());
     }
   }
 

@@ -94,10 +94,9 @@ public class JBoss6VFS extends VFS {
 
       // Look up and verify required methods
       VFS.getChild = checkNotNull(getMethod(VFS.VFS, "getChild", URL.class));
-      VirtualFile.getChildrenRecursively = checkNotNull(getMethod(VirtualFile.VirtualFile,
-          "getChildrenRecursively"));
-      VirtualFile.getPathNameRelativeTo = checkNotNull(getMethod(VirtualFile.VirtualFile,
-          "getPathNameRelativeTo", VirtualFile.VirtualFile));
+      VirtualFile.getChildrenRecursively = checkNotNull(getMethod(VirtualFile.VirtualFile, "getChildrenRecursively"));
+      VirtualFile.getPathNameRelativeTo = checkNotNull(
+          getMethod(VirtualFile.VirtualFile, "getPathNameRelativeTo", VirtualFile.VirtualFile));
 
       // Verify that the API has not changed
       checkReturnType(VFS.getChild, VirtualFile.VirtualFile);
@@ -107,10 +106,11 @@ public class JBoss6VFS extends VFS {
   }
 
   /**
-   * Verifies that the provided object reference is null. If it is null, then this VFS is marked
-   * as invalid for the current environment.
+   * Verifies that the provided object reference is null. If it is null, then this VFS is marked as invalid for the
+   * current environment.
    *
-   * @param object The object reference to check for null.
+   * @param object
+   *          The object reference to check for null.
    */
   protected static <T> T checkNotNull(T object) {
     if (object == null) {
@@ -120,18 +120,19 @@ public class JBoss6VFS extends VFS {
   }
 
   /**
-   * Verifies that the return type of a method is what it is expected to be. If it is not, then
-   * this VFS is marked as invalid for the current environment.
+   * Verifies that the return type of a method is what it is expected to be. If it is not, then this VFS is marked as
+   * invalid for the current environment.
    *
-   * @param method The method whose return type is to be checked.
-   * @param expected A type to which the method's return type must be assignable.
+   * @param method
+   *          The method whose return type is to be checked.
+   * @param expected
+   *          A type to which the method's return type must be assignable.
    * @see Class#isAssignableFrom(Class)
    */
   protected static void checkReturnType(Method method, Class<?> expected) {
     if (method != null && !expected.isAssignableFrom(method.getReturnType())) {
-      log.error("Method " + method.getClass().getName() + "." + method.getName()
-          + "(..) should return " + expected.getName() + " but returns "
-          + method.getReturnType().getName() + " instead.");
+      log.error("Method " + method.getClass().getName() + "." + method.getName() + "(..) should return "
+          + expected.getName() + " but returns " + method.getReturnType().getName() + " instead.");
       setInvalid();
     }
   }

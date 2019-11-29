@@ -50,18 +50,13 @@ class CacheTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/cache/CreateDB.sql");
+        "org/apache/ibatis/submitted/cache/CreateDB.sql");
   }
 
   /*
-   * Test Plan:
-   *  1) SqlSession 1 executes "select * from A".
-   *  2) SqlSession 1 closes.
-   *  3) SqlSession 2 executes "delete from A where id = 1"
-   *  4) SqlSession 2 executes "select * from A"
-   *
-   * Assert:
-   *   Step 4 returns 1 row. (This case fails when caching is enabled.)
+   * Test Plan: 1) SqlSession 1 executes "select * from A". 2) SqlSession 1 closes. 3) SqlSession 2 executes
+   * "delete from A where id = 1" 4) SqlSession 2 executes "select * from A" Assert: Step 4 returns 1 row. (This case
+   * fails when caching is enabled.)
    */
   @Test
   void testplan1() {
@@ -82,16 +77,9 @@ class CacheTest {
   }
 
   /*
-   * Test Plan:
-   *  1) SqlSession 1 executes "select * from A".
-   *  2) SqlSession 1 closes.
-   *  3) SqlSession 2 executes "delete from A where id = 1"
-   *  4) SqlSession 2 executes "select * from A"
-   *  5) SqlSession 2 rollback
-   *  6) SqlSession 3 executes "select * from A"
-   *
-   * Assert:
-   *   Step 6 returns 2 rows.
+   * Test Plan: 1) SqlSession 1 executes "select * from A". 2) SqlSession 1 closes. 3) SqlSession 2 executes
+   * "delete from A where id = 1" 4) SqlSession 2 executes "select * from A" 5) SqlSession 2 rollback 6) SqlSession 3
+   * executes "select * from A" Assert: Step 6 returns 2 rows.
    */
   @Test
   void testplan2() {
@@ -116,16 +104,9 @@ class CacheTest {
   }
 
   /*
-   * Test Plan with Autocommit on:
-   *  1) SqlSession 1 executes "select * from A".
-   *  2) SqlSession 1 closes.
-   *  3) SqlSession 2 executes "delete from A where id = 1"
-   *  4) SqlSession 2 closes.
-   *  5) SqlSession 2 executes "select * from A".
-   *  6) SqlSession 3 closes.
-   *
-   * Assert:
-   *   Step 6 returns 1 row.
+   * Test Plan with Autocommit on: 1) SqlSession 1 executes "select * from A". 2) SqlSession 1 closes. 3) SqlSession 2
+   * executes "delete from A where id = 1" 4) SqlSession 2 closes. 5) SqlSession 2 executes "select * from A". 6)
+   * SqlSession 3 closes. Assert: Step 6 returns 1 row.
    */
   @Test
   void testplan3() {
@@ -133,7 +114,6 @@ class CacheTest {
       PersonMapper pm = sqlSession1.getMapper(PersonMapper.class);
       Assertions.assertEquals(2, pm.findAll().size());
     }
-
 
     try (SqlSession sqlSession2 = sqlSessionFactory.openSession(true)) {
       PersonMapper pm = sqlSession2.getMapper(PersonMapper.class);
@@ -274,26 +254,24 @@ class CacheTest {
   void shouldErrorUnsupportedProperties() {
     when(sqlSessionFactory.getConfiguration()).addMapper(CustomCacheUnsupportedPropertyMapper.class);
     then(caughtException()).isInstanceOf(CacheException.class)
-      .hasMessage("Unsupported property type for cache: 'date' of type class java.util.Date");
+        .hasMessage("Unsupported property type for cache: 'date' of type class java.util.Date");
   }
 
   @Test
   void shouldErrorInvalidCacheNamespaceRefAttributesSpecifyBoth() {
-    when(sqlSessionFactory.getConfiguration().getMapperRegistry())
-      .addMapper(InvalidCacheNamespaceRefBothMapper.class);
+    when(sqlSessionFactory.getConfiguration().getMapperRegistry()).addMapper(InvalidCacheNamespaceRefBothMapper.class);
     then(caughtException()).isInstanceOf(BuilderException.class)
-      .hasMessage("Cannot use both value() and name() attribute in the @CacheNamespaceRef");
+        .hasMessage("Cannot use both value() and name() attribute in the @CacheNamespaceRef");
   }
 
   @Test
   void shouldErrorInvalidCacheNamespaceRefAttributesIsEmpty() {
-    when(sqlSessionFactory.getConfiguration().getMapperRegistry())
-      .addMapper(InvalidCacheNamespaceRefEmptyMapper.class);
+    when(sqlSessionFactory.getConfiguration().getMapperRegistry()).addMapper(InvalidCacheNamespaceRefEmptyMapper.class);
     then(caughtException()).isInstanceOf(BuilderException.class)
-      .hasMessage("Should be specified either value() or name() attribute in the @CacheNamespaceRef");
+        .hasMessage("Should be specified either value() or name() attribute in the @CacheNamespaceRef");
   }
 
-  private CustomCache unwrap(Cache cache){
+  private CustomCache unwrap(Cache cache) {
     Field field;
     try {
       field = cache.getClass().getDeclaredField("delegate");
@@ -302,7 +280,7 @@ class CacheTest {
     }
     try {
       field.setAccessible(true);
-      return (CustomCache)field.get(cache);
+      return (CustomCache) field.get(cache);
     } catch (IllegalAccessException e) {
       throw new IllegalStateException(e);
     } finally {
@@ -310,9 +288,7 @@ class CacheTest {
     }
   }
 
-  @CacheNamespace(implementation = CustomCache.class, properties = {
-      @Property(name = "date", value = "2016/11/21")
-  })
+  @CacheNamespace(implementation = CustomCache.class, properties = { @Property(name = "date", value = "2016/11/21") })
   private interface CustomCacheUnsupportedPropertyMapper {
   }
 

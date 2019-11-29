@@ -142,6 +142,7 @@
 
     <!-- Remove after parent 32 (support for jdk 13) -->
     <jacoco.version>0.8.4</jacoco.version>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
   </properties>
 
   <dependencies>

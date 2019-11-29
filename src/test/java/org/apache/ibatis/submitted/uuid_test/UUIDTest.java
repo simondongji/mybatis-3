@@ -41,14 +41,15 @@ class UUIDTest {
 
     // populate in-memory database
     BaseDataTest.runScript(sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(),
-            "org/apache/ibatis/submitted/uuid_test/CreateDB.sql");
+        "org/apache/ibatis/submitted/uuid_test/CreateDB.sql");
   }
 
   @Test
   void shouldGetAUser() {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       Mapper mapper = sqlSession.getMapper(Mapper.class);
-      Assertions.assertThrows(PersistenceException.class, () -> mapper.getUser(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d")));
+      Assertions.assertThrows(PersistenceException.class,
+          () -> mapper.getUser(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d")));
     }
   }
 

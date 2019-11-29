@@ -417,12 +417,21 @@ class TypeParameterResolverTest {
     @SuppressWarnings("unused")
     abstract class A<S> {
       protected S id;
-      public S getId() { return this.id;}
-      public void setId(S id) {this.id = id;}
+
+      public S getId() {
+        return this.id;
+      }
+
+      public void setId(S id) {
+        this.id = id;
+      }
     }
-    abstract class B<T> extends A<T> {}
-    abstract class C<U> extends B<U> {}
-    class D extends C<Integer> {}
+    abstract class B<T> extends A<T> {
+    }
+    abstract class C<U> extends B<U> {
+    }
+    class D extends C<Integer> {
+    }
     Class<?> clazz = D.class;
     Method method = clazz.getMethod("getId");
     assertEquals(Integer.class, TypeParameterResolver.resolveReturnType(method, clazz));
