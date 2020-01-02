@@ -37,25 +37,35 @@ public class BeanWrapper extends BaseWrapper {
   public BeanWrapper(MetaObject metaObject, Object object) {
     super(metaObject);
     this.object = object;
+    // 创建 MetaClass 对象
     this.metaClass = MetaClass.forClass(object.getClass(), metaObject.getReflectorFactory());
   }
 
+
   @Override
   public Object get(PropertyTokenizer prop) {
+    // <1> 获得集合类型的属性的指定位置的值
     if (prop.getIndex() != null) {
+      // 获得集合类型的属性
       Object collection = resolveCollection(prop, object);
+      // 获得指定位置的值
       return getCollectionValue(prop, collection);
     } else {
+      // <2> 获得属性的值
       return getBeanProperty(prop, object);
     }
   }
 
   @Override
   public void set(PropertyTokenizer prop, Object value) {
+    // 设置集合类型的属性的指定位置的值
     if (prop.getIndex() != null) {
+      // 获得集合类型的属性
       Object collection = resolveCollection(prop, object);
+      // 设置指定位置的值
       setCollectionValue(prop, collection, value);
     } else {
+      // 设置属性的值
       setBeanProperty(prop, object, value);
     }
   }
@@ -92,34 +102,51 @@ public class BeanWrapper extends BaseWrapper {
 
   @Override
   public Class<?> getGetterType(String name) {
+    // 创建 PropertyTokenizer 对象，对 name 进行分词
     PropertyTokenizer prop = new PropertyTokenizer(name);
+    // 有子表达式
     if (prop.hasNext()) {
+      // <1> 创建 MetaObject 对象
       MetaObject metaValue = metaObject.metaObjectForProperty(prop.getIndexedName());
+      // 如果 metaValue 为空，则基于 metaClass 获得返回类型
       if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
         return metaClass.getGetterType(name);
+        // 如果 metaValue 非空，则基于 metaValue 获得返回类型。
+        // 例如：richType.richMap.nihao ，其中 richMap 是 Map 类型，而 nihao 的类型，需要获得到 nihao 的具体值，才能做真正的判断。
       } else {
+        // 递归判断子表达式 children ，获得返回值的类型
         return metaValue.getGetterType(prop.getChildren());
       }
+      // 无子表达式
     } else {
+      // 直接获得返回值的类型
       return metaClass.getGetterType(name);
     }
   }
 
   @Override
   public boolean hasSetter(String name) {
+    // 创建 PropertyTokenizer 对象，对 name 进行分词
     PropertyTokenizer prop = new PropertyTokenizer(name);
+    // 有子表达式
     if (prop.hasNext()) {
+      // 判断是否有该属性的 getting 方法
       if (metaClass.hasSetter(prop.getIndexedName())) {
+        // 创建 MetaObject 对象
         MetaObject metaValue = metaObject.metaObjectForProperty(prop.getIndexedName());
         if (metaValue == SystemMetaObject.NULL_META_OBJECT) {
           return metaClass.hasSetter(name);
+          // 如果 metaValue 非空，则基于 metaValue 判断是否有 getting 方法。
         } else {
+          // 递归判断子表达式 children ，判断是否有 getting 方法
           return metaValue.hasSetter(prop.getChildren());
         }
       } else {
         return false;
       }
+      // 无子表达式
     } else {
+      // 判断是否有该属性的 getting 方法
       return metaClass.hasSetter(name);
     }
   }
@@ -146,11 +173,15 @@ public class BeanWrapper extends BaseWrapper {
   @Override
   public MetaObject instantiatePropertyValue(String name, PropertyTokenizer prop, ObjectFactory objectFactory) {
     MetaObject metaValue;
+    // 获得 setting 方法的方法参数类型
     Class<?> type = getSetterType(prop.getName());
     try {
+      // 创建对象
       Object newObject = objectFactory.create(type);
+      // 创建 MetaObject 对象
       metaValue = MetaObject.forObject(newObject, metaObject.getObjectFactory(), metaObject.getObjectWrapperFactory(),
           metaObject.getReflectorFactory());
+      // <1> 设置当前对象的值
       set(prop, newObject);
     } catch (Exception e) {
       throw new ReflectionException("Cannot set value of property '" + name + "' because '" + name
@@ -163,6 +194,7 @@ public class BeanWrapper extends BaseWrapper {
     try {
       Invoker method = metaClass.getGetInvoker(prop.getName());
       try {
+        // 通过调用 Invoker 方法，获得属性的值
         return method.invoke(object, NO_ARGUMENTS);
       } catch (Throwable t) {
         throw ExceptionUtil.unwrapThrowable(t);

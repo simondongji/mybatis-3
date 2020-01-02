@@ -18,10 +18,19 @@ package org.apache.ibatis.reflection.property;
 import java.util.Iterator;
 
 /**
+ * 属性分词器
+ *
  * @author Clinton Begin
  */
 public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
+  /**
+   * 当前字符串
+   */
   private String name;
+
+  /**
+   * 索引的 {@link #name} ，因为 {@link #name} 如果存在 {@link #index} 会被更改
+   */
   private final String indexedName;
   private String index;
   private final String children;
@@ -66,6 +75,7 @@ public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
 
   @Override
   public PropertyTokenizer next() {
+    //迭代获得下一个 PropertyTokenizer 对象
     return new PropertyTokenizer(children);
   }
 
